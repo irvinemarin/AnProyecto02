@@ -1,0 +1,64 @@
+.btn_readmore {
+  position: absolute !important;
+  right: 15px !important;
+  bottom: 15px !important;
+}
+
+
+mat-grid-tile {
+  background: white;
+}
+
+
+H2 {
+  font-size: 30px !important;
+  padding: 5px !important;
+  margin-bottom: 0 !important;
+  margin-top: 30px !important;
+}
+
+.h2_border {
+  border-bottom-color: brown;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  height: 4px !important;
+  width: 50px !important;
+  z-index: 1119999;
+  margin-bottom: 20px;
+}
+
+mat-card:hover {
+  box-shadow: -1px 5px 16px -3px rgba(0, 0, 0, 1);
+  -webkit-box-shadow: -1px 5px 16px -3px rgba(0, 0, 0, 1);
+  -moz-box-shadow: -1px 5px 16px -3px rgba(0, 0, 0, 1);
+}
+
+mat-card {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.card_content {
+  padding-right: 16px;
+  padding-left: 16px;
+  padding-bottom: 16px;
+}
+
+.fecha_card {
+  background-color: dodgerblue;
+  color: white;
+  font-weight: bold;
+  padding: 8px;
+  float: right;
+}
+
+.imgCard {
+  height: auto;
+  width: 100% !important;
+}
+
+.imgCard2 {
+  height: 45%;
+  width: 100% !important;
+}
+

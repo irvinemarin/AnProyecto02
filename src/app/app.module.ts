@@ -12,10 +12,30 @@ import {MatCardModule} from '@angular/material/card';
 import {MatTabsModule} from '@angular/material/tabs';
 import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
+import {DetalleActividadComponent} from './detalle-actividad/detalle-actividad.component';
+import {RouterModule, Routes} from '@angular/router';
+import {NavBarComponent} from './nav-bar/nav-bar.component';
+import {MainComponent} from './main/main.component';
+import {SinUpComponent} from './sin-up/sin-up.component';
+import {FooterComponent} from './footer/footer.component';
+import {MatListModule} from '@angular/material/list';
+
+
+const routes: Routes = [
+  {path: '', component: MainComponent},
+  {path: 'detAct', component: DetalleActividadComponent},
+  {path: 'singup', component: SinUpComponent}
+];
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DetalleActividadComponent,
+    NavBarComponent,
+    MainComponent,
+    SinUpComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +48,9 @@ import {MatInputModule} from '@angular/material/input';
     MatTabsModule,
     MatCarouselModule,
     MatInputModule,
-    FormsModule
+    MatListModule,
+    FormsModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]

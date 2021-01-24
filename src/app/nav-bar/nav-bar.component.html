@@ -1,0 +1,42 @@
+<mat-toolbar color="">
+  <mat-toolbar-row>
+    <span>Titulo Aplication</span>
+    <span class="example-spacer"></span>
+
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row style="width: 100%!important;">
+
+
+    <mat-tab-group color="accent" backgroundColor="" mat-align-tabs="end">
+      <mat-tab label="INICIO" (click)="gotoHome()"></mat-tab>
+      <mat-tab label="¿QUIENES SOMOS?"></mat-tab>
+      <mat-tab label="CONTACTO"></mat-tab>
+    </mat-tab-group>
+    <span class="example-spacer"></span>
+    <span style="padding-right:40px!important; ">
+      <mat-form-field class="example-form-field">
+
+        <mat-label>Buscar...
+          <mat-icon matSuffix
+                    style="right: 10px!important ;top: 0!important; position: absolute!important;">search</mat-icon>
+
+        </mat-label>
+        <input matInput type="search" [(ngModel)]="txtBuscarValue">
+        <button mat-button *ngIf="txtBuscarValue" matSuffix mat-icon-button aria-label="Clear"
+                (click)="txtBuscarValue=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </span>
+
+    <button mat-raised-button color="accent" [routerLink]="'singup'">
+      <mat-icon>how_to_reg</mat-icon>
+      Registrarse
+    </button>
+
+  </mat-toolbar-row>
+</mat-toolbar>
