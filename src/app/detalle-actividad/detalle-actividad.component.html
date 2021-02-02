@@ -1,23 +1,28 @@
 <app-nav-bar></app-nav-bar>
-<mat-card style="margin: auto!important; width: 60%!important;">
+<mat-card style="margin: auto!important; width: 60%!important; padding: 48px !important;">
 
 
-  <mat-card-title>
+  <label class="fecha_card">14 DICIEMBRE 15HS</label>
+  <mat-card-content>
+    <mat-card-title>
 
-
-    <h2>TITULO PRINCIPAL DE LA ACTIVIDAD
-      <button mat-button #back matSuffix mat-icon-button style="position: absolute !important; right: 16px!important;"
+      <button mat-button #back matSuffix mat-icon-button style="position: absolute !important; left: 16px!important;"
               [routerLink]="''">
-        <mat-icon>close</mat-icon>
+        <mat-icon>arrow_back</mat-icon>
       </button>
-    </h2>
+      <h2 style="margin-left: 50px!important;">
 
-    <div class="h2_border"></div>
+        TITULO PRINCIPAL DE LA ACTIVIDAD
+        <div class="h2_border"></div>
+      </h2>
+
+    </mat-card-title>
     <mat-card-content>
-
-
+      <mat-card-subtitle>
+        Contrary to popular belief,
+      </mat-card-subtitle>
       <p>
-        Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
+        Lorem Ipsum is not simply random text. It has roots in a piece of
         classical Latin
         literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney
         College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and
@@ -34,7 +39,7 @@
         accompanied by English versions from the 1914 translation by H. Rackham.
       </p>
 
-      <img src="assets/poder-juicial.png" alt="">
+      <img src="assets/poder-juicial.png" alt="" width="100%">
 
 
       <mat-card-subtitle>
@@ -115,12 +120,9 @@
 
       </mat-card-footer>
     </mat-card-content>
-    <mat-divider></mat-divider>
-    <mat-card-actions>
 
-    </mat-card-actions>
+  </mat-card-content>
 
-  </mat-card-title>
 </mat-card>
 
 <app-footer></app-footer>

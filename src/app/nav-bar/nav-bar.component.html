@@ -9,13 +9,16 @@
   </mat-toolbar-row>
 
   <mat-toolbar-row style="width: 100%!important;">
+    <div class="example-button-row">
+      <button mat-button (click)="gotoHome()">INICIO</button>
+      <button mat-button>¿QUIENES SOMOS?</button>
+      <button mat-button>CONTACTO</button>
 
+      <a mat-button href="https://www.facebook.com/" target="_blank">
+        <mat-icon style="color: blue">facebook</mat-icon>
+      </a>
+    </div>
 
-    <mat-tab-group color="accent" backgroundColor="" mat-align-tabs="end">
-      <mat-tab label="INICIO" (click)="gotoHome()"></mat-tab>
-      <mat-tab label="¿QUIENES SOMOS?"></mat-tab>
-      <mat-tab label="CONTACTO"></mat-tab>
-    </mat-tab-group>
     <span class="example-spacer"></span>
     <span style="padding-right:40px!important; ">
       <mat-form-field class="example-form-field">
@@ -33,7 +36,7 @@
       </mat-form-field>
     </span>
 
-    <button mat-raised-button color="accent" [routerLink]="'singup'">
+    <button mat-raised-button color="accent" [routerLink]="'/singup'">
       <mat-icon>how_to_reg</mat-icon>
       Registrarse
     </button>

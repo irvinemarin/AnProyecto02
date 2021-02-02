@@ -1,13 +1,3 @@
-mat-grid-tile {
-  color: white;
-  font-weight: bold;
-}
-
-.mat-list-text {
-  color: white !important;
-  font-weight: bold !important;
-}
-
-mat-grid-list {
-  background-color: #673ab7;
+.footer-primary-color {
+  background-color: #673ab7 !important;
 }

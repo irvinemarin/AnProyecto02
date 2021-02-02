@@ -1,4 +1,3 @@
-import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
@@ -19,14 +18,33 @@ import {MainComponent} from './main/main.component';
 import {SinUpComponent} from './sin-up/sin-up.component';
 import {FooterComponent} from './footer/footer.component';
 import {MatListModule} from '@angular/material/list';
+import {IndexComponent} from './admin/actividades/index/index.component';
+import {LOCALE_ID, NgModule} from '@angular/core';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatExpansionModule} from '@angular/material/expansion';
 
+import {MatMenuModule} from '@angular/material/menu';
+import {AlertDialogDelete} from './dialogs/dialog-delete/alert-dialog-delete.component';
+import {AlertDialogCreate} from './dialogs/dialog-create/alert-dialog-create.component';
+import {ToastrModule} from 'ngx-toastr';
+import {NgxImageZoomModule} from 'ngx-image-zoom';
 
 const routes: Routes = [
   {path: '', component: MainComponent},
+  {path: 'singup', component: SinUpComponent},
   {path: 'detAct', component: DetalleActividadComponent},
-  {path: 'singup', component: SinUpComponent}
+  {path: 'a-indexAct', component: IndexComponent},
 ];
 
+
+import localeEs from '@angular/common/locales/es';
+import {registerLocaleData} from '@angular/common';
+import {DialogImageFull} from './dialogs/dialog-image-full/alert-dialog-create.component';
+
+registerLocaleData(localeEs, 'es');
 
 @NgModule({
   declarations: [
@@ -35,7 +53,11 @@ const routes: Routes = [
     NavBarComponent,
     MainComponent,
     SinUpComponent,
-    FooterComponent
+    FooterComponent,
+    IndexComponent,
+    AlertDialogDelete,
+    AlertDialogCreate,
+    DialogImageFull,
   ],
   imports: [
     BrowserModule,
@@ -45,14 +67,26 @@ const routes: Routes = [
     MatButtonModule,
     MatGridListModule,
     MatCardModule,
+    NgxImageZoomModule,
     MatTabsModule,
+    ToastrModule.forRoot({
+      timeOut: 2000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    }),
+    MatFormFieldModule,
+    MatCheckboxModule,
     MatCarouselModule,
     MatInputModule,
+    MatDialogModule,
+    MatTooltipModule,
+    MatExpansionModule,
     MatListModule,
+    MatMenuModule,
     FormsModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [{provide: LOCALE_ID, useValue: 'es'}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,0 +1,144 @@
+<app-nav-bar></app-nav-bar>
+<div style="width: 15%; max-width: 16% !important; position: absolute ">
+
+  <p>
+    Option selected: {{shoes.selectedOptions.selected[0]?.value}}
+  </p>
+  <mat-selection-list #shoes [multiple]="false" style="width: 100%">
+    <mat-list-option *ngFor="let shoe of typesOfShoes" [value]="shoe" style="width: 100%!important;">
+      {{shoe}}
+    </mat-list-option>
+  </mat-selection-list>
+
+
+</div>
+
+<div style="width: 80% ; max-width: 85%;position: absolute;right: 4% ">
+
+  <div style="position: absolute !important; right:4% !important;">
+    <button mat-icon-button color="warn" [class.hide]="activdadSelectedList.length<2"
+            aria-label="Example icon button with a heart icon">
+      <mat-icon
+        (click)="removeAllItems()"
+        matTooltip="Eliminar Toda la lista"
+        matTooltipPosition="left"
+        matTooltipClass="example-tooltip-red">
+        delete
+      </mat-icon>
+
+
+    </button>
+    <mat-checkbox
+      (change)="setChangeAllSeleccionListenesr($event.checked)" [checked]="isCheckedAll">
+      Seleccionar todos
+    </mat-checkbox>
+  </div>
+  <br>
+  <br>
+
+
+  <!--  <mat-list>-->
+  <!--    <div mat-subheader>ACTIVIDADES-->
+  <!--      <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon" style="margin-left: 30px">-->
+  <!--        <mat-icon-->
+  <!--          matTooltip="Agregar nuevo"-->
+  <!--          matTooltipPosition="right"-->
+  <!--          matTooltipClass="example-tooltip-background"-->
+  <!--          (click)="showCreateDialog()"-->
+  <!--        >add_to_photos-->
+  <!--        </mat-icon>-->
+  <!--      </button>-->
+  <!--    </div>-->
+
+
+  <!--    <mat-list-item *ngFor="let folder of actividadList  ,let postition=index"-->
+  <!--                   (mouseover)="setHidebutonAdmin(false,folder)"-->
+  <!--                   (mouseout)="setHidebutonAdmin(true,folder)"-->
+
+  <!--    >-->
+  <!--      <mat-icon mat-list-icon>folder</mat-icon>-->
+  <!--      <div mat-line>{{folder.name}}</div>-->
+  <!--      <div mat-line> {{folder.updated | date}} </div>-->
+  <!--      <div [class.hide]="folder.hideButtonsAdmin" data-item-position="fabOptions_{{postition}}">-->
+  <!--        <button mat-icon-button color="warn" style="position: absolute; right: 30px!important;top: 15px!important;"-->
+  <!--                aria-label="Example icon button with a heart icon">-->
+  <!--          <mat-icon-->
+  <!--            (click)="removeItem(folder,postition)"-->
+  <!--            matTooltip="eliminar"-->
+  <!--            matTooltipPosition="right"-->
+  <!--            matTooltipClass="example-tooltip-red"-->
+  <!--          >delete-->
+  <!--          </mat-icon>-->
+  <!--        </button>-->
+  <!--        <mat-checkbox-->
+  <!--          [class.hide]="!folder.checked"-->
+  <!--          [checked]="folder.checked" (change)="setChangeItemListenesr($event.checked, folder)">-->
+  <!--        </mat-checkbox>-->
+  <!--      </div>-->
+  <!--    </mat-list-item>    -->
+  <!--  </mat-list>-->
+
+
+  <mat-accordion style="margin-top: 60px">
+    <mat-expansion-panel hideToggle *ngFor="let folder of actividadList  ,let postition=index"
+                         (mouseover)="setHidebutonAdmin(false,folder)"
+                         (mouseout)="setHidebutonAdmin(true,folder)">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon mat-list-icon>folder</mat-icon>
+          <div mat-line style="padding-left: 20px">{{folder.id}}</div>
+          <br>
+          <div mat-line
+               style="
+               padding-left: 20px;
+               position: absolute !important;
+               right: 100px!important;
+               top: 10px!important;"> {{folder.updated | date}} </div>
+        </mat-panel-title>
+        <mat-panel-description>
+          <div [class.hide]="false" data-item-position="fabOptions_{{postition}}">
+            <button mat-icon-button color="warn"
+                    style="position: absolute !important; right: 30px!important;top: 0px!important;"
+                    aria-label="Example icon button with a heart icon">
+              <mat-icon
+                (click)="removeItem(folder,postition)"
+                matTooltip="eliminar"
+                matTooltipPosition="right"
+                matTooltipClass="example-tooltip-red"
+              >delete
+              </mat-icon>
+            </button>
+            <mat-checkbox
+              style="position: absolute !important; right: 10px!important;top: 10px!important;"
+              [checked]="folder.checked" (change)="setChangeItemListenesr($event.checked, folder,postition)">
+            </mat-checkbox>
+          </div>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>This is the primary content of the panel.
+
+
+      </p>
+
+      <mat-card-content>
+        <img *ngFor="let item of folder.childList" mat-card-image
+             style="margin: 2px;"
+             mat-card-sm-image
+             width="10%"
+             (click)="showModalImage(item.url)"
+             src="{{item.url}}"
+             alt="Photo of a Shiba Inu"/>
+
+
+        <p>
+          The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+          A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+          bred for hunting.
+        </p>
+      </mat-card-content>
+    </mat-expansion-panel>
+
+  </mat-accordion>
+  {{activdadSelectedList|json}}
+</div>
+

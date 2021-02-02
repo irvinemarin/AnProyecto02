@@ -1,0 +1,28 @@
+.mat-dialog-content {
+  padding: 0 !important;
+  overflow-y: hidden;
+  margin-top: -24px !important;
+  margin-bottom: -24px !important;
+  max-height: 90% !important;
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+.mat-dialog-container {
+  padding: 0 !important;
+  overflow: hidden !important;
+  margin-top: -24px !important;
+  margin-bottom: -24px !important;
+  max-height: 90% !important;
+  width: 100% !important;
+
+  max-width: 90% !important;
+}
+
+.app-full-bleed-dialog .mat-dialog-container {
+  padding: 0;
+  max-height: 90% !important;
+  width: 100% !important;
+
+  max-width: 90% !important;
+}

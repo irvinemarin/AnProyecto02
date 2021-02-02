@@ -9,6 +9,7 @@ export class NavBarComponent implements OnInit {
   txtBuscarValue: '';
 
   constructor() {
+    window.scrollTo(0, 0);
   }
 
   ngOnInit(): void {
