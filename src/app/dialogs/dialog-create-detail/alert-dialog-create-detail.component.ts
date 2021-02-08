@@ -4,7 +4,7 @@ import {WebServiceAPIService} from '../../api/web-service-api.service';
 import {Section} from '../../admin/actividades/index/index.component';
 import {AngularFirestore} from '@angular/fire/firestore';
 
-export class DataModalCreate {
+export class DataModalCreateDetail {
   constructor(public title: string, public wichObject: string) {
 
   }
@@ -15,10 +15,10 @@ let URLPublica: string = '';
 
 @Component({
   selector: 'app-dialog-content-example',
-  templateUrl: './alert-dialog-create.component.html',
-  styleUrls: ['./alert-dialog-create.component.css']
+  templateUrl: './alert-dialog-create-detail.component.html',
+  styleUrls: ['./alert-dialog-create-detail.component.css']
 })
-export class AlertDialogCreate implements OnInit {
+export class AlertDialogCreateDetail implements OnInit {
 
   title = '';
   wichObject = '';
@@ -29,8 +29,8 @@ export class AlertDialogCreate implements OnInit {
   private URLPublica: string;
 
   constructor(
-    public dialogRef: MatDialogRef<AlertDialogCreate>,
-    @ Inject(MAT_DIALOG_DATA) public data: DataModalCreate,
+    public dialogRef: MatDialogRef<AlertDialogCreateDetail>,
+    @ Inject(MAT_DIALOG_DATA) public data: DataModalCreateDetail,
     private api: WebServiceAPIService,
     private firestore: AngularFirestore,
   ) {
@@ -69,7 +69,7 @@ export class AlertDialogCreate implements OnInit {
     let nameRef = (this.wichObject == 'AC') ? 'actividades' : 'agendas';
     let wichObject = this.wichObject;
 
-    this.api.createElemento(this.itemActividadRE, api, fileItem, dialog, firestore, this.URLPublica, nameRef, wichObject)
+    this.api.createElementoDetail(this.itemActividadRE, api, fileItem, dialog, firestore, this.URLPublica, nameRef, wichObject)
       .then(function(docRef) {
         resultCreatedID = docRef.id;
         let archivo = fileItem;

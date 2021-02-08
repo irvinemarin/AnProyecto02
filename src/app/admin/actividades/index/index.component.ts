@@ -1,17 +1,24 @@
 import {Component, HostListener, Inject, OnInit, ViewChild} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {AlertDialogDelete} from '../../../dialogs/dialog-delete/alert-dialog-delete.component';
-import {AlertDialogCreate, DataModal} from '../../../dialogs/dialog-create/alert-dialog-create.component';
+import {AlertDialogDelete, DataModal} from '../../../dialogs/dialog-delete/alert-dialog-delete.component';
+import {AlertDialogCreate, DataModalCreate} from '../../../dialogs/dialog-create/alert-dialog-create.component';
 import {ToastrService} from 'ngx-toastr';
 import {DataModalImage, DialogImageFull} from '../../../dialogs/dialog-image-full/alert-dialog-create.component';
+import {WebServiceAPIService} from '../../../api/web-service-api.service';
+import {AlertDialogCreateDetail, DataModalCreateDetail} from '../../../dialogs/dialog-create-detail/alert-dialog-create-detail.component';
 
 
-export interface Section {
+export class Section {
   checked: boolean;
   id: string;
-  updated: Date;
+  titulo: string;
+  dsc: string;
+  dateRegister: String;
   hideButtonsAdmin: true;
   childList: SectionChild[];
+  recurso: File;
+  urlName: String;
+  urlDecode: String;
 }
 
 export interface SectionChild {
@@ -20,7 +27,6 @@ export interface SectionChild {
   url: string;
   updated: string;
   idParent: String;
-
 }
 
 @Component({
@@ -33,64 +39,88 @@ export class IndexComponent implements OnInit {
   animal: string;
   name: string;
 
-
-  actividadList: Section[] = [
-    {
-      id: 'Photos',
-      updated: new Date('1/1/16'),
-      hideButtonsAdmin: true
-      , checked: false
-      , childList: [
-        {
-          url: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
-          selected: false,
-          idChild: '11',
-          updated: '11/01/2015',
-          idParent: 'Photos',
-        }, {
-          url: 'https://i.pinimg.com/originals/4d/48/f4/4d48f4fd953e913b7bedcd03662db121.jpg',
-          selected: false,
-          idChild: '11',
-          updated: '11/01/2015',
-          idParent: 'Photos',
-        }, {
-          url: 'https://fondosmil.com/fondo/11112.jpg',
-          selected: false,
-          idChild: '11',
-          updated: '11/01/2015',
-          idParent: 'Photos',
-        },
-
-      ]
-    },
-    {
-      id: 'Recipes',
-      updated: new Date('1/17/16'),
-      hideButtonsAdmin: true
-      , checked: false
-      , childList: null
-
-
-    },
-    {
-      id: 'Work',
-      updated: new Date('1/28/16'),
-      hideButtonsAdmin: true
-      , checked: false
-      , childList: null
-    }
-  ];
-  isCheckedAll = false;
+  actividadListIndex: Section[] = [];
+  actividadListDB: Section[] = [];
+  isCheckedAllACtividad = false;
   panelOpenState: boolean;
 
   typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
+  agendaListIndex = [];
+  agendaSelectedList = [];
+  private agendaListDB = [];
 
-  constructor(public dialog: MatDialog, private toastr: ToastrService) {
+  constructor(public dialog: MatDialog, private toastr: ToastrService, private service: WebServiceAPIService) {
   }
 
 
   ngOnInit(): void {
     this.showSuccess('Bienvenido', 'Success');
+    this.getActividadesWS();
+    this.getAgendasWS();
+  }
+
+  getActividadesWS = () =>
+    this.service.getActividades().subscribe(res => {
+        this.actividadListDB = [];
+
+        res.forEach(item => {
+          let actividad = new Section;
+          actividad.id = item.id;
+          actividad.titulo = item.titulo;
+          actividad.dsc = item.dsc;
+          actividad.dateRegister = item.dateRegister;
+          this.actividadListDB.push(actividad);
+          this.service.getActividadDetalle(item.id).subscribe((res: any[]) => {
+            // if (res['id'] != null) {
+            res.forEach(itemDB => {
+              if (itemDB.idAct == item.id) {
+                this.listDetalleActividad.push(itemDB);
+              }
+            });
+
+          }, (error) => {
+          });
+
+        });
+        this.setupPaginator('AC');
+      }
+    );
+
+  getAgendasWS = () =>
+    this.service.getAgendas().subscribe(res => {
+        this.agendaListDB = [];
+        console.table(res);
+        res.forEach(item => {
+          let actividad = new Section;
+          actividad.id = item.id;
+          actividad.titulo = item.titulo;
+          actividad.dsc = item.dsc;
+          actividad.dateRegister = item.dateRegister;
+          this.agendaListDB.push(actividad);
+        });
+        this.setupPaginator('AG');
+      }
+    );
+
+
+  private setupPaginator(wichList: string) {
+    if (wichList == 'AC') {
+      this.actividadListIndex = [];
+      this.actividadListDB.forEach((item, index) => {
+        if (index <= this.pageSizeActividad) {
+          this.actividadListIndex.push(item);
+        }
+      });
+    } else {
+      this.agendaListIndex = [];
+      this.agendaListDB.forEach((item, index) => {
+        if (index <= this.pageSizeAgenda) {
+          this.agendaListIndex.push(item);
+        }
+      });
+    }
+
+
   }
 
   showSuccess(message, titlle) {
@@ -116,24 +146,45 @@ export class IndexComponent implements OnInit {
     event.preventDefault();
   }
 
-  setChangeAllSeleccionListenesr(checked: boolean): void {
-    this.isCheckedAll = checked;
-    if (this.isCheckedAll) {
-      this.actividadList.forEach(item => {
-        item.checked = true;
-        this.setHidebutonAdmin(false, item);
+  setChangeAllSeleccionListenesr(checked: boolean, wichCheck: string): void {
 
-        if (this.activdadSelectedList.find((test) => test.name === item.id) === undefined) {
-          this.activdadSelectedList.push(item);
-        }
-      });
+    if (wichCheck == 'AC') {
+      this.isCheckedAllACtividad = checked;
+      if (this.isCheckedAllACtividad) {
+        this.actividadListIndex.forEach(item => {
+          item.checked = true;
+          this.setHidebutonAdmin(false, item);
+          if (this.activdadSelectedList.find((test) => test.name === item.id) === undefined) {
+            this.activdadSelectedList.push(item);
+          }
+        });
+      } else {
+        this.actividadListIndex.forEach(item => {
+          item.checked = false;
+          this.setHidebutonAdmin(true, item);
+        });
+        this.activdadSelectedList = [];
+      }
     } else {
-      this.actividadList.forEach(item => {
-        item.checked = false;
-        this.setHidebutonAdmin(true, item);
-      });
-      this.activdadSelectedList = [];
+      this.isCheckedAllAgenda = checked;
+      if (this.isCheckedAllAgenda) {
+        this.agendaListIndex.forEach(item => {
+          item.checked = true;
+          this.setHidebutonAdmin(false, item);
+          if (this.agendaSelectedList.find((test) => test.name === item.id) === undefined) {
+            this.agendaSelectedList.push(item);
+          }
+        });
+      } else {
+        this.agendaListIndex.forEach(item => {
+          item.checked = false;
+          this.setHidebutonAdmin(true, item);
+        });
+        this.agendaSelectedList = [];
+      }
+
     }
+
 
   }
 
@@ -148,58 +199,59 @@ export class IndexComponent implements OnInit {
       if (!itemSelected.checked) {
         this.activdadSelectedList.splice(this.activdadSelectedList.findIndex(x => x.name === itemSelected.id), 1);
       }
-
     }
   }
 
   removeItem(folder: Section, postition: number): void {
-
     this.openDialogDelete(postition);
-
   }
 
 
   openDialogDelete(postition: number): void {
-
-    // var cn = confirm('You have begun editing fields for this user. Do you want to leave without finishing?');
-    // console.log(cn);
-
     const dialogo1 = this.dialog.open(AlertDialogDelete, {
-      data: new DataModal('Eliminar Actividad', 'Esta seguro que quiere eliminar esta actividad?', 'aasd')
+      data: new DataModal(
+        'Eliminar Actividad', 'Esta seguro que quiere eliminar esta actividad?', 'aasd')
     });
-
     dialogo1.afterClosed().subscribe(result => {
       if (result == 'Deleted') {
-        this.actividadList.splice(postition, 1);
+        this.actividadListIndex.splice(postition, 1);
       }
     });
-
-
   }
 
   activdadSelectedList = [];
 
-  removeAllItems(): void {
-    this.isCheckedAll = false;
-
-
-    this.actividadList.forEach(item => {
-      this.actividadList.splice(this.activdadSelectedList.findIndex(x => x.name === item.id), 1);
-    });
-    this.activdadSelectedList = [];
+  removeAllItems(wichList: string): void {
+    if (wichList == 'AC') {
+      this.removeAll(this.isCheckedAllACtividad, this.actividadListIndex, this.activdadSelectedList);
+    } else {
+      this.removeAll(this.isCheckedAllAgenda, this.agendaListIndex, this.agendaSelectedList);
+    }
   }
 
-
-  showCreateDialog() {
-    const dialogo1 = this.dialog.open(AlertDialogCreate, {
-      data: new DataModalImage('Registrar Actividad')
+  private removeAll(checked: boolean, listIndex: Section[], SelectedList: any[]) {
+    checked = false;
+    listIndex.forEach(item => {
+      listIndex.splice(SelectedList
+        .findIndex(x => x.name === item.id), 1);
     });
+    SelectedList = [];
+  }
 
+  showCreateDialog(wichObject: string) {
+    let titleCreation = (wichObject == 'AC') ? 'Actividad' : 'Agenda';
+
+
+    const dialogo1 = this.dialog.open(AlertDialogCreate, {
+      data: new DataModalCreate('Registrar Elemento : ' + titleCreation, wichObject)
+    });
     dialogo1.afterClosed().subscribe(result => {
-      if (result == 'CR') {//CR=CREATE
-        alert('CREATED');
+      if (result == 'CR_AG') {
+
+      } else if (result == 'CR_AC') {//CR=CREATE
+
       } else {
-        alert('CANCELED');
+
       }
     });
   }
@@ -208,15 +260,41 @@ export class IndexComponent implements OnInit {
     const dialogo1 = this.dialog.open(DialogImageFull, {
       panelClass: 'app-full-bleed-dialog',
       data: new DataModalImage(url),
-
     });
-
     dialogo1.afterClosed().subscribe(result => {
       // if (result == 'CR') {//CR=CREATE
       //   alert('CREATED');
       // } else {
       //   alert('CANCELED');
       // }
+    });
+  }
+
+  pageSizeActividad = 10;
+  pageSizeAgenda = 10;
+  isCheckedAllAgenda = false;
+  listDetalleActividad = [];
+
+  getActividadesByPageSize(wichList: string) {
+    // this.pageSize;
+    this.setupPaginator(wichList);
+  }
+
+  showCreateDetailDialog(wichObject: string) {
+    let titleCreation = (wichObject == 'AC') ? 'Actividad' : 'Agenda';
+
+
+    const dialogo1 = this.dialog.open(AlertDialogCreateDetail, {
+      data: new DataModalCreateDetail('Registrar Detalle : ' + titleCreation, wichObject)
+    });
+    dialogo1.afterClosed().subscribe(result => {
+      if (result == 'CR_AG') {
+
+      } else if (result == 'CR_AC') {//CR=CREATE
+
+      } else {
+
+      }
     });
   }
 }

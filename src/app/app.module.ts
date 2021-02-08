@@ -13,10 +13,10 @@ import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {DetalleActividadComponent} from './detalle-actividad/detalle-actividad.component';
 import {RouterModule, Routes} from '@angular/router';
-import {NavBarComponent} from './nav-bar/nav-bar.component';
+import {NavBarComponent} from './partial/nav-bar/nav-bar.component';
 import {MainComponent} from './main/main.component';
 import {SinUpComponent} from './sin-up/sin-up.component';
-import {FooterComponent} from './footer/footer.component';
+import {FooterComponent} from './partial/footer/footer.component';
 import {MatListModule} from '@angular/material/list';
 import {IndexComponent} from './admin/actividades/index/index.component';
 import {LOCALE_ID, NgModule} from '@angular/core';
@@ -25,24 +25,31 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 import {MatMenuModule} from '@angular/material/menu';
 import {AlertDialogDelete} from './dialogs/dialog-delete/alert-dialog-delete.component';
 import {AlertDialogCreate} from './dialogs/dialog-create/alert-dialog-create.component';
+import {AlertDialogCreateDetail} from './dialogs/dialog-create-detail/alert-dialog-create-detail.component';
 import {ToastrModule} from 'ngx-toastr';
 import {NgxImageZoomModule} from 'ngx-image-zoom';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
 
 const routes: Routes = [
   {path: '', component: MainComponent},
   {path: 'singup', component: SinUpComponent},
-  {path: 'detAct', component: DetalleActividadComponent},
-  {path: 'a-indexAct', component: IndexComponent},
+  {path: 'detAct/:idAct', component: DetalleActividadComponent},
+  {path: 'admin', component: IndexComponent},
 ];
 
 
 import localeEs from '@angular/common/locales/es';
 import {registerLocaleData} from '@angular/common';
 import {DialogImageFull} from './dialogs/dialog-image-full/alert-dialog-create.component';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
 
 registerLocaleData(localeEs, 'es');
 
@@ -57,6 +64,7 @@ registerLocaleData(localeEs, 'es');
     IndexComponent,
     AlertDialogDelete,
     AlertDialogCreate,
+    AlertDialogCreateDetail,
     DialogImageFull,
   ],
   imports: [
@@ -68,6 +76,8 @@ registerLocaleData(localeEs, 'es');
     MatGridListModule,
     MatCardModule,
     NgxImageZoomModule,
+    MatDatepickerModule,
+    MatPaginatorModule,
     MatTabsModule,
     ToastrModule.forRoot({
       timeOut: 2000,
@@ -84,9 +94,11 @@ registerLocaleData(localeEs, 'es');
     MatListModule,
     MatMenuModule,
     FormsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [{provide: LOCALE_ID, useValue: 'es'}],
+  providers: [{provide: LOCALE_ID, useValue: 'es'}, AngularFirestoreModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {

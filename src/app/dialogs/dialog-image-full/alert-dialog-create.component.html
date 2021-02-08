@@ -1,13 +1,29 @@
 <div mat-dialog-content>
-  <lib-ngx-image-zoom
 
-    zoomMode="hover"
+  <!--  <div class="content-buttons-modal">-->
+
+  <!--    <div class="example-button-container">-->
+  <!--      <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon">-->
+  <!--        <mat-icon>filter_list</mat-icon>-->
+  <!--      </button>-->
+  <!--    </div>-->
+  <!--    <div class="example-button-container">-->
+  <!--      <button mat-mini-fab aria-label="Example icon button with a home icon">-->
+  <!--        <mat-icon>home</mat-icon>-->
+  <!--      </button>-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <lib-ngx-image-zoom
+    style="height: 50%!important;"
+    zoomMode="click"
     enableScrollZoom="true"
-    magnification='3'
+    magnification='2'
     [thumbImage]="UrlImage"
     [fullImage]="UrlImage"
+  >
 
-  ></lib-ngx-image-zoom>
+
+  </lib-ngx-image-zoom>
 
 </div>
 

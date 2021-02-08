@@ -6,12 +6,16 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent implements OnInit {
-  typesOfShoes: string[] = ['Nosotros', 'Contacto', 'Contacto 2'];
+  typesOfShoes: string[] = ['Nosotros', 'Contacto'];
+  breakpoint: any;
 
   constructor() {
   }
 
-  ngOnInit(): void {
+
+  ngOnInit() {
+
   }
+
 
 }

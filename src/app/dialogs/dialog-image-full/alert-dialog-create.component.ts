@@ -3,7 +3,7 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog
 import {Observable, Observer} from 'rxjs';
 
 export class DataModalImage {
-  constructor(public UrlImage: String) {
+  constructor(public title: String) {
 
   }
 
@@ -24,7 +24,7 @@ export class DialogImageFull implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<DialogImageFull>,
     @ Inject(MAT_DIALOG_DATA) public data: DataModalImage) {
-    this.UrlImage = data.UrlImage;
+    this.UrlImage = data.title;
   }
 
   ngOnInit(): void {
