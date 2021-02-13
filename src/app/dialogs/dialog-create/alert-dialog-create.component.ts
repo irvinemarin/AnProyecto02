@@ -39,6 +39,12 @@ export class AlertDialogCreate implements OnInit {
   }
 
   ngOnInit(): void {
+
+
+    if (this.wichObject == 'SL') {
+      this.isHideExtraForm = true;
+      this.cols = 1;
+    }
   }
 
   cancelar(): void {
@@ -66,11 +72,26 @@ export class AlertDialogCreate implements OnInit {
     let api = this.api;
     let dialog = this.dialogRef;
     let firestore = this.firestore;
-    let nameRef = (this.wichObject == 'AC') ? 'actividades' : 'agendas';
+    // let nameRef = (this.wichObject == 'AC') ? 'actividades' : 'agendas';
+
+    let nameRef: string;
+    if (this.wichObject == 'AC') {
+      nameRef = 'actividades';
+    } else if (this.wichObject == 'AG') {
+      nameRef = 'agendas';
+    } else if (this.wichObject == 'SL') {
+      nameRef = 'slider';
+    }
+
+
     let wichObject = this.wichObject;
+    let isHideProggresLocal = false;
+
+    this.isHideProggres = isHideProggresLocal;
 
     this.api.createElemento(this.itemActividadRE, api, fileItem, dialog, firestore, this.URLPublica, nameRef, wichObject)
       .then(function(docRef) {
+
         resultCreatedID = docRef.id;
         let archivo = fileItem;
         let referencia = api.referenciaCloudStorage(`${resultCreatedID}_${archivo.name}`);
@@ -85,16 +106,17 @@ export class AlertDialogCreate implements OnInit {
                 urlDecode: URL
               })
                 .then(function() {
-                  console.log('Document successfully updated!');
                   if (wichObject == 'AC') {
                     dialog.close('CR_AC');
                   } else {
                     dialog.close('CR_AG');
                   }
+                  isHideProggresLocal = true;
                 })
                 .catch(function(error) {
                   // The document probably doesn't exist.
                   console.error('Error updating document: ', error);
+                  isHideProggresLocal = true;
                 });
             });
           }
@@ -120,6 +142,8 @@ export class AlertDialogCreate implements OnInit {
 
   //Sube el archivo a Cloud Storage
   subirArchivo(resultCreatedID: string) {
+
+
     let archivo = this.file;
     let referencia = this.api.referenciaCloudStorage(`${resultCreatedID}_${archivo.name}`);
     let tarea = this.api.tareaCloudStorage(`${resultCreatedID}_${archivo.name}`, archivo);
@@ -128,8 +152,10 @@ export class AlertDialogCreate implements OnInit {
       this.porcentaje = Math.round(porcentaje);
       if (this.porcentaje == 100) {
         this.finalizado = true;
+
       }
     });
+
     referencia.getDownloadURL().subscribe((URL) => {
       console.log(URL);
       URLPublica = URL;
@@ -145,6 +171,12 @@ export class AlertDialogCreate implements OnInit {
   }
 
   urlPreview: any;
+  isDisabledBtn = false;
+  isHideExtraForm = false;
+  cols = 2;
+  istCol6 = true;
+  istCol12 = false;
+  isHideProggres = true;
 
   readImg() {
     let reader = new FileReader();

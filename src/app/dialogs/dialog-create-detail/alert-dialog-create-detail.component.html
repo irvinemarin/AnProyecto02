@@ -1,29 +1,14 @@
 <h2 mat-dialog-title style="width: 100%!important;">{{title}}</h2>
 <div mat-dialog-content>
 
-  <mat-grid-list
-    cols="2"
-    rowHeight="1.5:1.9"
-    style="
-          width: 700px!important;
+  <div
+    class="row"
+    style="width: 1000px!important;
 
   ">
-    <mat-grid-tile>
+    <div class="col-md-5">
       <form class="example-form" style="width: 90%!important; padding: 16px">
 
-        <div class="container">
-          <input type="file" style="display: none" #fileInput accept="image/*" (change)="onChangeFileInput()"/>
-          <button mat-raised-button color="primary" class="file-select-button" (click)="onClickFileInputButton()">
-            <mat-icon>attach_file</mat-icon>
-            Seleccionar imagen
-          </button>
-
-          <p class="file-name" *ngIf="!file; else fileName">No ha Seleccionado Ningun Archivo</p>
-          <ng-template #fileName>
-            <p class="file-name">{{ file?.name }}</p>
-          </ng-template>
-          <p>{{porcentaje}}</p>
-        </div>
 
         <table class="" cellspacing="0" style="width: 450px!important;">
           <tr>
@@ -51,61 +36,56 @@
             </td>
           </tr>
 
-          <tr>
-            <td>
-              <mat-form-field class="example-full-width">
-                <mat-label>Fecha Actividad</mat-label>
-                <input matInput #fechaActividad type="date">
-              </mat-form-field>
-              <!--          <input matInput [matDatepicker]="fechaActividad">-->
-              <!--          <mat-datepicker #fechaActividad></mat-datepicker>-->
-            </td>
-          </tr>
-
 
         </table>
+        <div class="container">
+          <input type="file" style="display: none" #fileInput accept="image/*" (change)="onChangeFileInput()"/>
+          <button mat-raised-button color="primary" class="file-select-button" (click)="onClickFileInputButton()">
+            <mat-icon>attach_file</mat-icon>
+            Seleccionar imagen
+          </button>
 
+          <p class="file-name" *ngIf="!file; else fileName">No ha Seleccionado Ningun Archivo</p>
+          <ng-template #fileName>
+            <p class="file-name">{{ file?.name }}</p>
+          </ng-template>
+          <p>{{porcentaje}}</p>
+        </div>
 
       </form>
 
-    </mat-grid-tile>
-    <mat-grid-tile>
+    </div>
+    <div class="col-md-7">
 
       <mat-card
         style="width: 97%;height: 95%!important;"
       >
-        <img
-          class="imgCard"
-          [src]="urlPreview">
 
         <div
           class="card_content">
-          <label
-            class="fecha_card">
-            {{fechaActividad.value|date}}
-          </label>
           <br>
           <br>
           <h3> {{titulo.value}}</h3>
-          <p class="">
+          <p style="font-weight: normal!important;">
             {{descripcion.value}}
           </p>
+
+          <img
+            width="100%"
+            class=""
+            *ngIf="urlPreview!=''"
+            [src]="urlPreview">
+
+
         </div>
 
-        <button
-          mat-raised-button
-          color="primary"
-          class="btn_readmore"
-        >
-          ---
-        </button>
 
       </mat-card>
 
 
-    </mat-grid-tile>
+    </div>
 
-  </mat-grid-list>
+  </div>
 
 
 </div>
@@ -114,7 +94,7 @@
 <div mat-dialog-actions>
   <button mat-button (click)="cancelar()">Cancelar</button>
   <button mat-raised-button color="primary"
-          (click)="crear(titulo,descripcion,fileInput,fechaActividad)">
+          (click)="crear(titulo,descripcion,fileInput)">
     CREAR
   </button>
 </div>

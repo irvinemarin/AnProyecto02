@@ -127,11 +127,6 @@ export class MainComponent implements OnInit {
 
 
   onResize(event) {
-    // this.countItemsAgenda = (event.target.innerWidth <= 400) ? 1 : 4;
-    // // this.rowHeigthActividad = (event.target.innerWidth <= 400) ? '1:1' : '1:1.2';
-    // // this.rowHeigthAgenda = (event.target.innerWidth <= 400) ? '1:1' : '1:1.2';
-    // this.PropottionAgenda = (event.target.innerWidth <= 400) ? 90 : 30;
-    // // this.proportionActividad = (event.target.innerWidth <= 400) ? 90 : 30;
   }
 
   private detectBreakpoint(): void {

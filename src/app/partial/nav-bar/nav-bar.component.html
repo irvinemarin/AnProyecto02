@@ -2,30 +2,12 @@
   <mat-toolbar-row>
     <span>Titulo Aplication</span>
     <span class="example-spacer"></span>
-
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-      <mat-icon>menu</mat-icon>
-    </button>
-  </mat-toolbar-row>
-
-  <mat-toolbar-row style="width: 100%!important;">
-    <div class="example-button-row">
-      <button mat-button (click)="gotoHome()">INICIO</button>
-      <button mat-button>¿QUIENES SOMOS?</button>
-      <button mat-button>CONTACTO</button>
-
-      <a mat-button href="https://www.facebook.com/" target="_blank">
-        <mat-icon style="color: blue">facebook</mat-icon>
-      </a>
-    </div>
-
-    <span class="example-spacer"></span>
     <span style="padding-right:40px!important; ">
       <mat-form-field class="example-form-field">
 
         <mat-label>Buscar...
           <mat-icon matSuffix
-                    style="right: 10px!important ;top: 0!important; position: absolute!important;">search</mat-icon>
+                    style="">search</mat-icon>
 
         </mat-label>
         <input matInput type="search" [(ngModel)]="txtBuscarValue">
@@ -35,11 +17,24 @@
         </button>
       </mat-form-field>
     </span>
-
     <button mat-raised-button color="accent" [routerLink]="'/singup'">
       <mat-icon>how_to_reg</mat-icon>
       Registrarse
     </button>
+    <!--    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">-->
+    <!--      <mat-icon>menu</mat-icon>-->
+    <!--    </button>-->
+  </mat-toolbar-row>
+
+  <mat-toolbar-row style="width: 100%!important;">
+    <div class="example-button-row">
+      <button mat-button (click)="gotoHome()">INICIO</button>
+      <button mat-button>¿QUIENES SOMOS?</button>
+      <button mat-button>CONTACTO</button>
+    </div>
+
+    <span class="example-spacer"></span>
+
 
   </mat-toolbar-row>
 </mat-toolbar>

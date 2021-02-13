@@ -90,7 +90,7 @@ mat-card:hover {
 }
 
 .imgCard2 {
-  height: 45%;
+  height: 40% !important;
   width: 100% !important;
 }
 

@@ -1,17 +1,33 @@
 <h2 mat-dialog-title style="width: 100%!important;">{{title}}</h2>
 <div mat-dialog-content>
+  <mat-spinner [class.hide]="isHideProggres" style="margin: auto"></mat-spinner>
 
-  <mat-grid-list
-    cols="2"
-    rowHeight="1.5:1.9"
-    style="
-          width: 700px!important;
+  <img
+    class=""
+
+    height="200px"
+    width="100%"
+    style="max-width: 700px!important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    "
+    [class.hide]="!isHideExtraForm"
+    [src]="urlPreview">
+
+  <div
+    class="row"
+    style="width: 700px!important;
 
   ">
-    <mat-grid-tile>
+    <div
+      [class.col-sm-6]="istCol6"
+      [class.col-sm-12]="istCol12"
+    >
       <form class="example-form" style="width: 90%!important; padding: 16px">
 
         <div class="container">
+
+
           <input type="file" style="display: none" #fileInput accept="image/*" (change)="onChangeFileInput()"/>
           <button mat-raised-button color="primary" class="file-select-button" (click)="onClickFileInputButton()">
             <mat-icon>attach_file</mat-icon>
@@ -25,7 +41,7 @@
           <p>{{porcentaje}}</p>
         </div>
 
-        <table class="" cellspacing="0" style="width: 450px!important;">
+        <table class="" cellspacing="0" style="width: 450px!important;" [class.hide]="isHideExtraForm">
           <tr>
             <td>
               <mat-form-field class="example-full-width">
@@ -34,14 +50,7 @@
               </mat-form-field>
             </td>
           </tr>
-          <!--      <tr>-->
-          <!--        <td>-->
-          <!--          <mat-form-field class="example-full-width">-->
-          <!--            <mat-label>Introduccion</mat-label>-->
-          <!--            <textarea #introduccion matInput placeholder="Ex. 100 Main St"></textarea>-->
-          <!--          </mat-form-field>-->
-          <!--        </td>-->
-          <!--      </tr>-->
+
           <tr>
             <td>
               <mat-form-field class="example-full-width">
@@ -54,7 +63,7 @@
           <tr>
             <td>
               <mat-form-field class="example-full-width">
-                <mat-label>Fecha Actividad</mat-label>
+                <mat-label>Fecha</mat-label>
                 <input matInput #fechaActividad type="date">
               </mat-form-field>
               <!--          <input matInput [matDatepicker]="fechaActividad">-->
@@ -68,8 +77,8 @@
 
       </form>
 
-    </mat-grid-tile>
-    <mat-grid-tile>
+    </div>
+    <div class="col-sm-6" [class.hide]="isHideExtraForm">
 
       <mat-card
         style="width: 97%;height: 95%!important;"
@@ -97,15 +106,15 @@
           color="primary"
           class="btn_readmore"
         >
-          ---
+          --------------------
         </button>
 
       </mat-card>
 
 
-    </mat-grid-tile>
+    </div>
 
-  </mat-grid-list>
+  </div>
 
 
 </div>
@@ -114,6 +123,7 @@
 <div mat-dialog-actions>
   <button mat-button (click)="cancelar()">Cancelar</button>
   <button mat-raised-button color="primary"
+          [disabled]="!isHideProggres"
           (click)="crear(titulo,descripcion,fileInput,fechaActividad)">
     CREAR
   </button>

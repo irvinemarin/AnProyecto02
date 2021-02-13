@@ -34,13 +34,14 @@ import {AlertDialogCreateDetail} from './dialogs/dialog-create-detail/alert-dial
 import {ToastrModule} from 'ngx-toastr';
 import {NgxImageZoomModule} from 'ngx-image-zoom';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 const routes: Routes = [
   {path: '', component: MainComponent},
   {path: 'singup', component: SinUpComponent},
-  {path: 'detAct/:idAct', component: DetalleActividadComponent},
-  {path: 'admin', component: IndexComponent},
+  {path: 'detAct/:params', component: DetalleActividadComponent},
+  {path: 'admin/:token', component: IndexComponent},
 ];
 
 
@@ -50,6 +51,9 @@ import {DialogImageFull} from './dialogs/dialog-image-full/alert-dialog-create.c
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {AdminSliderComponent} from './admin/slider/admin-slider/admin-slider.component';
+import {NavlineComponent} from './partial/navline/navline.component';
+import {MatSelectModule} from '@angular/material/select';
 
 registerLocaleData(localeEs, 'es');
 
@@ -66,6 +70,8 @@ registerLocaleData(localeEs, 'es');
     AlertDialogCreate,
     AlertDialogCreateDetail,
     DialogImageFull,
+    AdminSliderComponent,
+    NavlineComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,15 +86,18 @@ registerLocaleData(localeEs, 'es');
     MatPaginatorModule,
     MatTabsModule,
     ToastrModule.forRoot({
-      timeOut: 2000,
+      timeOut: 5000,
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
+      progressBar: true,
+      closeButton: true,
     }),
     MatFormFieldModule,
     MatCheckboxModule,
     MatCarouselModule,
     MatInputModule,
     MatDialogModule,
+    MatProgressSpinnerModule,
     MatTooltipModule,
     MatExpansionModule,
     MatListModule,
@@ -96,7 +105,8 @@ registerLocaleData(localeEs, 'es');
     FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    MatSelectModule
   ],
   providers: [{provide: LOCALE_ID, useValue: 'es'}, AngularFirestoreModule],
   bootstrap: [AppComponent]

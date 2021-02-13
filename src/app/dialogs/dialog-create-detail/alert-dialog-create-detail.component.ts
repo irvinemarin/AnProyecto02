@@ -5,7 +5,7 @@ import {Section} from '../../admin/actividades/index/index.component';
 import {AngularFirestore} from '@angular/fire/firestore';
 
 export class DataModalCreateDetail {
-  constructor(public title: string, public wichObject: string) {
+  constructor(public title: string, public wichObject: string, public idPatent: string) {
 
   }
 
@@ -36,6 +36,7 @@ export class AlertDialogCreateDetail implements OnInit {
   ) {
     this.title = data.title;
     this.wichObject = data.wichObject;
+
   }
 
   ngOnInit(): void {
@@ -45,7 +46,7 @@ export class AlertDialogCreateDetail implements OnInit {
     this.dialogRef.close();
   }
 
-  crear(titulo: HTMLInputElement, descripcion: HTMLTextAreaElement, fileInput: HTMLInputElement, fechaActividad: HTMLInputElement) {
+  crear(titulo: HTMLInputElement, descripcion: HTMLTextAreaElement, fileInput: HTMLInputElement) {
     this.onSubmit(titulo.value, 'none', descripcion.value, fileInput.files[0]);
 
     // alert(titulo.value);
@@ -57,48 +58,56 @@ export class AlertDialogCreateDetail implements OnInit {
 
     this.itemActividadRE = new Section();
     this.itemActividadRE.titulo = titulo;
+    this.itemActividadRE.idParent = this.data.idPatent;
     this.itemActividadRE.dsc = descripcion;
-    this.itemActividadRE.urlName = fileItem.name;
-    this.itemActividadRE.urlDecode = fileItem.name;
+    this.itemActividadRE.urlName = (fileItem != null) ? fileItem.name : '';
+    this.itemActividadRE.urlDecode = (fileItem != null) ? fileItem.name : '';
     this.itemActividadRE.dateRegister = new Date().toLocaleString();
     // itemActividadRE.recurso = fileItem;
     let resultCreatedID = '';
     let api = this.api;
     let dialog = this.dialogRef;
     let firestore = this.firestore;
-    let nameRef = (this.wichObject == 'AC') ? 'actividades' : 'agendas';
+    let nameRef = (this.wichObject == 'D_ACT') ? 'detActividad' : 'detAgenda';
     let wichObject = this.wichObject;
 
     this.api.createElementoDetail(this.itemActividadRE, api, fileItem, dialog, firestore, this.URLPublica, nameRef, wichObject)
       .then(function(docRef) {
         resultCreatedID = docRef.id;
         let archivo = fileItem;
-        let referencia = api.referenciaCloudStorage(`${resultCreatedID}_${archivo.name}`);
-        let tarea = api.tareaCloudStorage(`${resultCreatedID}_${archivo.name}`, archivo);
-        tarea.percentageChanges().subscribe((porcentaje) => {
-          let porcentajeResult = Math.round(porcentaje);
-          if (porcentajeResult == 100) {
-            referencia.getDownloadURL().subscribe((URL) => {
-              const actividadRef = firestore.collection(nameRef).doc(resultCreatedID);
-              // Set the 'capital' field of the city
-              actividadRef.update({
-                urlDecode: URL
-              })
-                .then(function() {
-                  console.log('Document successfully updated!');
-                  if (wichObject == 'AC') {
-                    dialog.close('CR_AC');
-                  } else {
-                    dialog.close('CR_AG');
-                  }
+        if (fileItem != null) {
+
+          let referencia = api.referenciaCloudStorage(`${resultCreatedID}_${archivo.name}`);
+          let tarea = api.tareaCloudStorage(`${resultCreatedID}_${archivo.name}`, archivo);
+          tarea.percentageChanges().subscribe((porcentaje) => {
+            let porcentajeResult = Math.round(porcentaje);
+            if (porcentajeResult == 100) {
+              referencia.getDownloadURL().subscribe((URL) => {
+                const actividadRef = firestore.collection(nameRef).doc(resultCreatedID);
+                // Set the 'capital' field of the city
+                actividadRef.update({
+                  urlDecode: URL
                 })
-                .catch(function(error) {
-                  // The document probably doesn't exist.
-                  console.error('Error updating document: ', error);
-                });
-            });
-          }
-        });
+                  .then(function() {
+                    console.log('Document successfully updated!');
+                    if (wichObject == 'AC') {
+                      dialog.close('CR_AC');
+                    } else {
+                      dialog.close('CR_AG');
+                    }
+                  })
+                  .catch(function(error) {
+                    // The document probably doesn't exist.
+                    console.error('Error updating document: ', error);
+                  });
+              });
+            }
+          });
+
+
+        } else {
+          dialog.close('CR_AG');
+        }
 
 
       })

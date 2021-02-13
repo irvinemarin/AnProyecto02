@@ -18,15 +18,15 @@
 
     </mat-card-title>
     <mat-card-content>
-      <div *ngFor="let item of listDetalleActividad">
+      <div *ngFor="let item of listDetalle">
         <mat-card-subtitle>
           {{item.titulo}}
         </mat-card-subtitle>
         <p>
-          {{item.descripcion}}
+          {{item.dsc}}
         </p>
 
-        <img src="{{item.imgDet}}" alt="" width="100%" *ngIf="item.imgDet">
+        <img src="{{item.urlDecode}}" alt="" width="100%" *ngIf="item.urlDecode">
       </div>
 
       <mat-card-footer>
