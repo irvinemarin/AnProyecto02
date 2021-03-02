@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {WebServiceAPIService} from '../api/web-service-api.service';
-import {Section} from '../admin/actividades/index/index.component';
+import {WebServiceAPIService} from '../../api/web-service-api.service';
+import {Section} from '../../admin/actividades/index/index.component';
 
 @Component({
   selector: 'app-detalle-actividad',

@@ -92,6 +92,26 @@ export class WebServiceAPIService {
       }));
   }
 
+
+  getDataAboutUs() {
+
+    let ref = "about_us"
+
+    let aboutUsData = this.firestore
+      .collection<any>(ref);
+
+
+    return aboutUsData.snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return {id, ...data};
+          }
+        );
+      }));
+  }
+
   getAgendas() {
     return this.AgendasCollection.snapshotChanges().pipe(
       map(actions => {
@@ -173,6 +193,16 @@ export class WebServiceAPIService {
           }
         });
       }));
+  }
+
+  modifiContacto(itemActividadRE: Section, api: WebServiceAPIService, fileItem: File, dialog: MatDialogRef<AlertDialogCreate>, firestore: AngularFirestore, URLPublica: string, nameRef: string, wichObject: string) {
+
+  }
+
+  getDataContacto() {
+    // return this.firestore.collection<any>('contacto_data').snapshotChanges().subscribe(
+    //
+    // );
   }
 }
 

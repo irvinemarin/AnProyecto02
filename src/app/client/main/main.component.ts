@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Section} from '../admin/actividades/index/index.component';
-import {WebServiceAPIService} from '../api/web-service-api.service';
+import {Section} from '../../admin/actividades/index/index.component';
+import {WebServiceAPIService} from '../../api/web-service-api.service';
 import {ToastrService} from 'ngx-toastr';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {BreakpointObserver} from '@angular/cdk/layout';

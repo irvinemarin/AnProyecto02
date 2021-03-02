@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ToastrService} from 'ngx-toastr';
-import {WebServiceAPIService} from '../api/web-service-api.service';
+import {WebServiceAPIService} from '../../api/web-service-api.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {take} from 'rxjs/operators';
 

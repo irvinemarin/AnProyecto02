@@ -15,7 +15,15 @@ export class NavBarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  gotoHome(): void {
-    window.location.replace('');
+  redirect(nameComponent: string): void {
+
+    if (nameComponent == 'AB') {
+      window.location.replace('/aboutAs');
+    } else if (nameComponent == 'CO') {
+      window.location.replace('/contact');
+    } else {
+      window.location.replace('');
+    }
   }
+
 }

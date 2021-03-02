@@ -1,0 +1,98 @@
+<app-nav-bar></app-nav-bar>
+<div style="margin: auto!important; width: 60%!important; padding: 48px !important;">
+
+  <mat-card-content>
+    <mat-card-title>
+
+      <button mat-button #back matSuffix mat-icon-button style="position: absolute !important; left: 16px!important;"
+              [routerLink]="''">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <h2 style="margin-left: 50px!important;">
+        {{item.titulo}}
+
+        <div class="h2_border"></div>
+      </h2>
+
+    </mat-card-title>
+    <mat-card-content>
+      <div>
+        <mat-card-subtitle>
+
+        </mat-card-subtitle>
+        <p>
+          {{descripcionPage}}
+        </p>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6 card_about_content ">
+          <mat-card class="card_item_about">
+
+            <h2 class="align-content-center">MISIÓN</h2>
+            <!--            <img src="{{item.urlDecode}}" alt="" class="img_round" width="100%" *ngIf="item.urlDecode">-->
+            <mat-card-content style="padding: 16px">
+              <mat-card-title>
+                {{mision["titulo"]}}
+              </mat-card-title>
+              <p>
+                {{mision["descripcion"]}}
+              </p>
+            </mat-card-content>
+
+          </mat-card>
+        </div>
+
+        <div class="col-sm-6 card_about_content">
+          <mat-card class="card_item_about">
+
+            <h2>VISIÓN</h2>
+            <!--            <img src="{{item.urlDecode}}" alt="" class="img_round" width="100%" *ngIf="item.urlDecode">-->
+            <mat-card-content style="padding: 16px">
+              <mat-card-title>
+                {{vision["titulo"]}}
+              </mat-card-title>
+              <p>
+                {{vision["descripcion"]}}
+              </p>
+            </mat-card-content>
+
+          </mat-card>
+        </div>
+
+      </div>
+
+
+      <div class="container">
+        <div class="row">
+
+          <h2>OUR MANAGEMENT TEAM</h2>
+          <div class="col-sm-6 card_about_content">
+            <mat-card class="card_item_about">
+              <img src="{{contactoData.urlDecode}}" alt="" class="img_round" width="100%"
+                   *ngIf="contactoData.urlDecode">
+            </mat-card>
+          </div>
+
+          <div class="col-sm-6 card_about_content">
+            <mat-card class="card_item_about">
+              <img src="{{contactoData.urlDecode}}" alt="" class="img_round" width="100%"
+                   *ngIf="contactoData.urlDecode">
+            </mat-card>
+          </div>
+        </div>
+      </div>
+
+
+      <mat-card-footer>
+        help@lipsum.com
+        Privacy Policy
+
+      </mat-card-footer>
+    </mat-card-content>
+
+  </mat-card-content>
+
+</div>
+
+<app-footer></app-footer>

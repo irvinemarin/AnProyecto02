@@ -8,6 +8,11 @@ import {Component, OnInit} from '@angular/core';
 export class FooterComponent implements OnInit {
   typesOfShoes: string[] = ['Nosotros', 'Contacto'];
   breakpoint: any;
+  dataContancto = {
+    telefono: '(+385) 593 6888',
+    direccion: '8578 NW 70th Street, 33166, Miami - Florida, USA',
+    email: 'support@example.net'
+  };
 
   constructor() {
   }

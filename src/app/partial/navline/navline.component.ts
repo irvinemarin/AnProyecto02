@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ThemePalette} from '@angular/material/core';
 
 @Component({
   selector: 'app-navline',
@@ -6,8 +7,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navline.component.css']
 })
 export class NavlineComponent implements OnInit {
-
-  constructor() { }
 
   ngOnInit(): void {
   }

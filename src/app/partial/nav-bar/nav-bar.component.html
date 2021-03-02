@@ -28,9 +28,9 @@
 
   <mat-toolbar-row style="width: 100%!important;">
     <div class="example-button-row">
-      <button mat-button (click)="gotoHome()">INICIO</button>
-      <button mat-button>¿QUIENES SOMOS?</button>
-      <button mat-button>CONTACTO</button>
+      <button mat-button (click)="redirect('HO')">INICIO</button>
+      <button mat-button (click)="redirect('CO')">CONTACTO</button>
+      <button mat-button (click)="redirect('AB')">¿QUIENES SOMOS?</button>
     </div>
 
     <span class="example-spacer"></span>

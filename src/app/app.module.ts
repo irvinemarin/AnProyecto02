@@ -11,11 +11,11 @@ import {MatCardModule} from '@angular/material/card';
 import {MatTabsModule} from '@angular/material/tabs';
 import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
-import {DetalleActividadComponent} from './detalle-actividad/detalle-actividad.component';
+import {DetalleActividadComponent} from './client/detalle-actividad/detalle-actividad.component';
 import {RouterModule, Routes} from '@angular/router';
 import {NavBarComponent} from './partial/nav-bar/nav-bar.component';
-import {MainComponent} from './main/main.component';
-import {SinUpComponent} from './sin-up/sin-up.component';
+import {MainComponent} from './client/main/main.component';
+import {SinUpComponent} from './client/sin-up/sin-up.component';
 import {FooterComponent} from './partial/footer/footer.component';
 import {MatListModule} from '@angular/material/list';
 import {IndexComponent} from './admin/actividades/index/index.component';
@@ -26,7 +26,6 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-
 import {MatMenuModule} from '@angular/material/menu';
 import {AlertDialogDelete} from './dialogs/dialog-delete/alert-dialog-delete.component';
 import {AlertDialogCreate} from './dialogs/dialog-create/alert-dialog-create.component';
@@ -35,16 +34,6 @@ import {ToastrModule} from 'ngx-toastr';
 import {NgxImageZoomModule} from 'ngx-image-zoom';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-
-
-const routes: Routes = [
-  {path: '', component: MainComponent},
-  {path: 'singup', component: SinUpComponent},
-  {path: 'detAct/:params', component: DetalleActividadComponent},
-  {path: 'admin/:token', component: IndexComponent},
-];
-
-
 import localeEs from '@angular/common/locales/es';
 import {registerLocaleData} from '@angular/common';
 import {DialogImageFull} from './dialogs/dialog-image-full/alert-dialog-create.component';
@@ -54,6 +43,21 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AdminSliderComponent} from './admin/slider/admin-slider/admin-slider.component';
 import {NavlineComponent} from './partial/navline/navline.component';
 import {MatSelectModule} from '@angular/material/select';
+import {AboutComponent} from './client/about/about.component';
+import {ContactoComponent} from './client/contacto/contacto.component';
+import {AdminAboutusComponent} from './admin/admin-aboutus/admin-aboutus.component';
+import {AdminContactoComponent} from './admin/admin-contacto/admin-contacto.component';
+import {AlertDialogContacto} from './dialogs/dialog-contacto/alert-dialog-contacto.component';
+
+const routes: Routes = [
+  {path: '', component: MainComponent},
+  {path: 'aboutAs', component: AboutComponent},
+  {path: 'contact', component: ContactoComponent},
+  {path: 'singup', component: SinUpComponent},
+  {path: 'detAct/:params', component: DetalleActividadComponent},
+  {path: 'admin/:token', component: IndexComponent},
+];
+
 
 registerLocaleData(localeEs, 'es');
 
@@ -61,16 +65,21 @@ registerLocaleData(localeEs, 'es');
   declarations: [
     AppComponent,
     DetalleActividadComponent,
+    AboutComponent,
     NavBarComponent,
+    ContactoComponent,
     MainComponent,
     SinUpComponent,
     FooterComponent,
     IndexComponent,
     AlertDialogDelete,
     AlertDialogCreate,
+    AlertDialogContacto,
     AlertDialogCreateDetail,
     DialogImageFull,
     AdminSliderComponent,
+    AdminAboutusComponent,
+    AdminContactoComponent,
     NavlineComponent,
   ],
   imports: [
