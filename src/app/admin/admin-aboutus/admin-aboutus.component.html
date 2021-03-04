@@ -1,40 +1,84 @@
-<mat-carousel
-  timings="250ms ease-in"
-  [autoplay]="true"
-  interval="5000"
-  color="accent"
-  maxWidth="auto"
-  proportion="30"
-  [slides]="slides.length"
-  [loop]="true"
-  [hideArrows]="true"
-  [hideIndicators]="true"
-  [useKeyboard]="false"
-  [useMouseWheel]="true"
-  orientation="rtl"
->
+<div class="row">
+  <div class="col-sm-8 offset-sm-2 card_about_content p-2">
+    <mat-card class="card_item_about">
 
-  <mat-carousel-slide
-    *ngFor="let slide of slides; let row = index"
-    [image]="slide.urlDecode"
-    overlayColor="#00000040"
-    [hideOverlay]="false"
-  >
-    <div class="example-button-row">
-      <div class="example-flex-container">
-        <div class="example-button-container">
-          <button mat-mini-fab color="warn" aria-label="Example icon button with a delete icon">
-            <mat-icon
-              (click)="removeImg(row,slide,'SL')"
-            >delete
-            </mat-icon>
+      <h2 style=" text-align: center;">DESCRIPCION QUIENES SOMOS</h2>
+      <!--            <img src="{{item.urlDecode}}" alt="" class="img_round" width="100%" *ngIf="item.urlDecode">-->
+
+      <mat-card-content style="padding: 16px">
+
+        <mat-divider></mat-divider>
+        <p class="p-4">
+          <button mat-icon-button style="position: absolute;right: 8px"
+                  (click)="editData('DESC_P','data_page_ab')">
+            <mat-icon>edit</mat-icon>
           </button>
-        </div>
-      </div>
-    </div>
+          {{descripcionPage}}
+          <br>
+
+        </p>
+      </mat-card-content>
+
+    </mat-card>
+  </div>
 
 
-  </mat-carousel-slide>
+  <div class="col-sm-6 card_about_content p-2">
+    <mat-card class="card_item_about">
+
+      <h2 style=" text-align: center;">MISIÓN</h2>
+      <!--            <img src="{{item.urlDecode}}" alt="" class="img_round" width="100%" *ngIf="item.urlDecode">-->
+
+      <mat-card-content style="padding: 16px">
+
+        <mat-card-title>
+          <div>
+            <button mat-icon-button style="position: absolute;right: 8px" (click)="editData('TIT','mision')">
+              <mat-icon>edit</mat-icon>
+            </button>
+            {{mision["titulo"]}}
+          </div>
 
 
-</mat-carousel>
+        </mat-card-title>
+        <br>
+        <mat-divider></mat-divider>
+        <p class="p-4">
+          <button mat-icon-button style="position: absolute;right: 8px" (click)="editData('DESC','mision')">
+            <mat-icon>edit</mat-icon>
+          </button>
+          {{mision["descripcion"]}}
+          <br>
+
+        </p>
+      </mat-card-content>
+
+    </mat-card>
+  </div>
+
+  <div class="col-sm-6 card_about_content p-2">
+    <mat-card class="card_item_about">
+
+      <h2 style=" text-align: center;">VISIÓN</h2>
+      <!--            <img src="{{item.urlDecode}}" alt="" class="img_round" width="100%" *ngIf="item.urlDecode">-->
+      <mat-card-content style="padding: 16px">
+        <mat-card-title>
+          <button mat-icon-button style="position: absolute;right: 8px" (click)="editData('TIT','vision')">
+            <mat-icon>edit</mat-icon>
+          </button>
+          {{vision["titulo"]}}
+        </mat-card-title>
+        <br>
+        <mat-divider></mat-divider>
+        <p class="p-4">
+          <button mat-icon-button style="position: absolute;right: 8px" (click)="editData('DESC','vision')">
+            <mat-icon>edit</mat-icon>
+          </button>
+          {{vision["descripcion"]}}
+        </p>
+      </mat-card-content>
+
+    </mat-card>
+  </div>
+
+</div>

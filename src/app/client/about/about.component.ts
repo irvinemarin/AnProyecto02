@@ -28,29 +28,23 @@ export class AboutComponent implements OnInit {
   vision = {};
   descripcionPage = '';
   contactoData = {
-    urlDecode: './assets/poder-juicial.png'
-
+    urlDecode: ''
   };
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      this.api.getDataAboutUs().subscribe((res: any[]) => {
-        res.forEach(item => {
-          if (item.id == 'mision') {
-            console.table(item);
-            this.mision = item;
-          }
-          if (item.id == 'vision') {
-            console.table(item);
-            this.vision = item;
-          }
-          if (item.id == 'data_page') {
-            console.table(item);
-            this.descripcionPage = item.dsc;
-          }
-        });
-      }, (error) => {
+    this.api.getDataAboutUs().subscribe((res: any[]) => {
+      res.forEach(item => {
+        if (item.id == 'mision') {
+          this.mision = item;
+        }
+        if (item.id == 'vision') {
+          this.vision = item;
+        }
+        if (item.id == 'data_page_ab') {
+          this.descripcionPage = item.dsc;
+        }
       });
+    }, (error) => {
     });
 
   }

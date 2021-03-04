@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3 ">
+      <h2>Datos Aplicación</h2>
+      <mat-list role="list">
+
+        <mat-list-item role="listitem">Nombre Aplicacion :
+
+          <span
+            style="position: absolute;top: 35px;  color: #8861b7">
+            {{dataApp["Titulo"]}}
+          </span>
+          <button mat-icon-button style="position: absolute;right: 8px" (click)="editData('TIT')">
+            <mat-icon>edit</mat-icon>
+          </button>
+
+        </mat-list-item>
+        <br>
+        <mat-divider></mat-divider>
+        <mat-list-item role="listitem">Version Aplicacion Web :
+
+          <span
+            style="position: absolute;top: 35px;  color: #8861b7">
+            {{dataApp["Version"]}}
+          </span>
+          <button mat-icon-button style="position: absolute;right: 8px" (click)="editData('VER')">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </mat-list-item>
+        <br>
+        <mat-divider></mat-divider>
+        <mat-list-item role="listitem">Copyright Datos :
+          <span
+            style="position: absolute;top: 35px;  color: #8861b7">
+            {{dataApp["copy_data"]}}
+          </span>
+          <button mat-icon-button style="position: absolute;right: 8px" (click)="editData('COPY')">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </mat-list-item>
+        <br>
+        <mat-divider></mat-divider>
+        <br>
+
+      </mat-list>
+
+    </div>
+    <div class="col-md-8 ">
+
+    </div>
+
+  </div>
+
+
+</div>

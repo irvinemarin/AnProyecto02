@@ -1,21 +1,45 @@
-<mat-toolbar color="">
-  <mat-toolbar-row>
-    <span>Titulo Aplication</span>
+<mat-toolbar
+
+>
+  <div class="container-fluid"
+       style="background-color: #5e1bb6"
+  >
+    <div class="row ">
+      <div class="col-sm-12 col-md-3 offset-md-2" style="margin: 0 auto !important; ">
+        <img src="https://aquitulogo.es/wp-content/uploads/2019/05/LOGO-aquitulogo_web-2-1-1.png"
+             width="80px" alt="">
+      </div>
+      <div class="col-sm-12 col-md-5">
+        <h2 style="float: right;color: white" class="col-12"> {{dataApp["Titulo"]}}</h2>
+      </div>
+    </div>
+  </div>
+
+
+  <mat-toolbar-row
+
+  >
+    <span>{{dataApp["Titulo"]}}</span>
+    <div class="container">
+      <button mat-button (click)="redirect('HO')">INICIO</button>
+      <button mat-button (click)="redirect('CO')">CONTACTO</button>
+      <button mat-button (click)="redirect('AB')">¿QUIENES SOMOS?</button>
+    </div>
     <span class="example-spacer"></span>
     <span style="padding-right:40px!important; ">
-      <mat-form-field class="example-form-field">
+<!--      <mat-form-field class="example-form-field">-->
 
-        <mat-label>Buscar...
-          <mat-icon matSuffix
-                    style="">search</mat-icon>
+      <!--        <mat-label>Buscar...-->
+      <!--          <mat-icon matSuffix-->
+      <!--                    style="">search</mat-icon>-->
 
-        </mat-label>
-        <input matInput type="search" [(ngModel)]="txtBuscarValue">
-        <button mat-button *ngIf="txtBuscarValue" matSuffix mat-icon-button aria-label="Clear"
-                (click)="txtBuscarValue=''">
-          <mat-icon>close</mat-icon>
-        </button>
-      </mat-form-field>
+      <!--        </mat-label>-->
+      <!--        &lt;!&ndash;        <input matInput type="search" [(ngModel)]="txtBuscarValue">&ndash;&gt;-->
+      <!--        &lt;!&ndash;        <button mat-button *ngIf="txtBuscarValue" matSuffix mat-icon-button aria-label="Clear"&ndash;&gt;-->
+      <!--        &lt;!&ndash;                (click)="txtBuscarValue=''">&ndash;&gt;-->
+      <!--        &lt;!&ndash;          <mat-icon>close</mat-icon>&ndash;&gt;-->
+      <!--        &lt;!&ndash;        </button>&ndash;&gt;-->
+      <!--      </mat-form-field>-->
     </span>
     <button mat-raised-button color="accent" [routerLink]="'/singup'">
       <mat-icon>how_to_reg</mat-icon>
@@ -24,17 +48,5 @@
     <!--    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">-->
     <!--      <mat-icon>menu</mat-icon>-->
     <!--    </button>-->
-  </mat-toolbar-row>
-
-  <mat-toolbar-row style="width: 100%!important;">
-    <div class="example-button-row">
-      <button mat-button (click)="redirect('HO')">INICIO</button>
-      <button mat-button (click)="redirect('CO')">CONTACTO</button>
-      <button mat-button (click)="redirect('AB')">¿QUIENES SOMOS?</button>
-    </div>
-
-    <span class="example-spacer"></span>
-
-
   </mat-toolbar-row>
 </mat-toolbar>

@@ -2,9 +2,8 @@ import {Component, OnInit} from '@angular/core';
 
 import {MatDialog} from '@angular/material/dialog';
 import {WebServiceAPIService} from '../../api/web-service-api.service';
-import {Section} from '../actividades/index/index.component';
-import {AlertDialogDelete, DataModal} from '../../dialogs/dialog-delete/alert-dialog-delete.component';
-import {AlertDialogCreate, DataModalCreate} from '../../dialogs/dialog-create/alert-dialog-create.component';
+import {AlertDialogEditData, DataModalEdit} from '../../dialogs/dialog-edit/alert-dialog-edit.component';
+
 
 @Component({
   selector: 'app-admin-contacto',
@@ -13,40 +12,71 @@ import {AlertDialogCreate, DataModalCreate} from '../../dialogs/dialog-create/al
 })
 export class AdminContactoComponent implements OnInit {
   slides = [];
+  dataContancto = {};
 
-  constructor(public dialog: MatDialog, private service: WebServiceAPIService) {
+  constructor(
+    public dialog: MatDialog,
+    private api: WebServiceAPIService) {
   }
 
   ngOnInit(): void {
-    this.getSliderWS();
+    this.getDataContactoWS();
+    this.getMessagessContactoWS();
   }
 
 
-  getSliderWS = () =>{}
-    // this.service.getDataContacto().subscribe(res => {
-    //     this.slides = [];
-    //     // console.table(res);
-    //     // res.forEach(item => {
-    //     //   this.slides.push(item);
-    //     // });
-    //
-    //   }
-    // );
+  getDataContactoWS = () => {
+    this.api.getDataContacto().subscribe((res: any[]) => {
+      res.forEach(item => {
+        if (item.id == 'data_page') {
+          this.dataContancto = item;
+        }
+      });
+    }, (error) => {
+    });
+  };
 
-  modifyContacData(row: number, contacto: any, sl: string) {
-    this.openDialogEdit(row, contacto, sl);
+  getMessagessContactoWS = () => {
+    this.api.getMessagesContacto().subscribe((res: any[]) => {
+      res.forEach(item => {
 
+        this.listMessage.push(item);
+      });
+    }, (error) => {
+    });
+  };
+
+  listMessage = [];
+
+
+  openDialogEdit(columName: string): void {
+    let elementName = '';
+    switch (columName) {
+      case 'DIR':
+        elementName = 'Direccion';
+        break;
+      case 'TEL':
+        elementName = 'Telefono';
+        break;
+      case 'EMA':
+        elementName = 'Email';
+
+        break;
+    }
+
+
+    const dialogo1 = this.dialog.open(AlertDialogEditData, {
+      data: new DataModalEdit(
+        'Editar ' + elementName, columName, elementName,"data_page")
+    });
+    dialogo1.afterClosed().subscribe(result => {
+      if (result == 'Modify') {
+
+      }
+    });
   }
 
-  openDialogEdit(postition: number, contancto, typeObject: string): void {
-    // const dialogo1 = this.dialog.open(AlertDialogCreate, {
-    //   data: new DataModalCreate(
-    //     'Eliminar Imagen', 'Esta seguro que quiere eliminar esta Imagen?', typeObject, contancto)
-    // });
-    // dialogo1.afterClosed().subscribe(result => {
-    //   if (result == 'Deleted') {
-    //
-    //   }
-    // });
+  editData(columName: string) {
+    this.openDialogEdit(columName);
   }
 }

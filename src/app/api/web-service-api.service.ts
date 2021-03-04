@@ -9,6 +9,7 @@ import {MatDialogRef} from '@angular/material/dialog';
 import {AlertDialogCreate} from '../dialogs/dialog-create/alert-dialog-create.component';
 import {AlertDialogCreateDetail} from '../dialogs/dialog-create-detail/alert-dialog-create-detail.component';
 import {AlertDialogDelete} from '../dialogs/dialog-delete/alert-dialog-delete.component';
+import {ToastrService} from 'ngx-toastr';
 
 
 @Injectable({
@@ -95,7 +96,7 @@ export class WebServiceAPIService {
 
   getDataAboutUs() {
 
-    let ref = "about_us"
+    let ref = 'about_us';
 
     let aboutUsData = this.firestore
       .collection<any>(ref);
@@ -195,15 +196,102 @@ export class WebServiceAPIService {
       }));
   }
 
-  modifiContacto(itemActividadRE: Section, api: WebServiceAPIService, fileItem: File, dialog: MatDialogRef<AlertDialogCreate>, firestore: AngularFirestore, URLPublica: string, nameRef: string, wichObject: string) {
-
-  }
 
   getDataContacto() {
-    // return this.firestore.collection<any>('contacto_data').snapshotChanges().subscribe(
-    //
-    // );
+    return this.firestore.collection<any>('contacto').snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return {id, ...data};
+        });
+      }));
   }
+
+  getDataAPP() {
+    return this.firestore.collection<any>('setting').snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return {id, ...data};
+
+        });
+      }));
+  }
+
+  sendMessage(dataForm, toast: ToastrService, clear: void) {
+    return this.firestore
+      .collection('messages')
+      .add(Object.assign({}, dataForm));
+
+  }
+
+  editData(inputValue: string, wichObject: string, docReference: string) {
+    let dataUpdate = {};
+    let collectionName = '';
+
+    if (docReference == 'data_app') {
+      collectionName = 'setting';
+
+      switch (wichObject) {
+        case 'TIT':
+          dataUpdate = {Titulo: inputValue};
+          break;
+        case 'VER':
+          dataUpdate = {Version: inputValue};
+          break;
+        case 'COPY':
+          dataUpdate = {copy_data: inputValue};
+          break;
+      }
+
+    } else if (docReference == 'mision' || docReference == 'vision' || docReference == 'data_page_ab') {
+      collectionName = 'about_us';
+      switch (wichObject) {
+        case 'TIT':
+          dataUpdate = {titulo: inputValue};
+          break;
+        case 'DESC':
+          dataUpdate = {descripcion: inputValue};
+          break;
+        case 'DESC_P':
+          dataUpdate = {dsc: inputValue};
+          break;
+      }
+    } else {
+      collectionName = 'contacto';
+      switch (wichObject) {
+        case 'DIR':
+          dataUpdate = {direccion: inputValue};
+          break;
+        case 'TEL':
+          dataUpdate = {telefono: inputValue};
+          break;
+        case 'EMA':
+          dataUpdate = {email: inputValue};
+          break;
+      }
+    }
+    let db = firebase.firestore();
+    return db.collection(collectionName).doc(docReference).update(
+      dataUpdate
+    );
+  }
+
+
+  getMessagesContacto() {
+    return this.firestore.collection<any>('messages').snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return {id, ...data};
+        });
+      }));
+  }
+
+
 }
 
 //ov1ns

@@ -3,6 +3,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {WebServiceAPIService} from '../../api/web-service-api.service';
 import {Section} from '../actividades/index/index.component';
 import {AlertDialogDelete, DataModal} from '../../dialogs/dialog-delete/alert-dialog-delete.component';
+import {AlertDialogEditData, DataModalEdit} from '../../dialogs/dialog-edit/alert-dialog-edit.component';
 
 @Component({
   selector: 'app-admin-aboutus',
@@ -10,41 +11,65 @@ import {AlertDialogDelete, DataModal} from '../../dialogs/dialog-delete/alert-di
   styleUrls: ['./admin-aboutus.component.css']
 })
 export class AdminAboutusComponent implements OnInit {
-  slides = [];
+  mision = {};
+  vision = {};
+  descripcionPage = '';
 
-  constructor(public dialog: MatDialog, private service: WebServiceAPIService) {
+  constructor(public dialog: MatDialog,
+              private api: WebServiceAPIService) {
   }
 
   ngOnInit(): void {
-    this.getSliderWS();
+    this.getAboutUsDataWS();
   }
 
 
-  getSliderWS = () =>
-    this.service.getSliders().subscribe(res => {
-        this.slides = [];
-        // console.table(res);
-        res.forEach(item => {
-          this.slides.push(item);
-        });
-
-      }
-    );
-
-  removeImg(row: number, slide: any, sl: string) {
-    this.openDialogDelete(row, slide, sl);
-
+  getAboutUsDataWS = () => {
+    this.api.getDataAboutUs().subscribe((res: any[]) => {
+      res.forEach(item => {
+        if (item.id == 'mision') {
+          this.mision = item;
+        }
+        if (item.id == 'vision') {
+          this.vision = item;
+        }
+        if (item.id == 'data_page_ab') {
+          this.descripcionPage = item.dsc;
+        }
+      });
+    }, (error) => {
+    });
   }
+  ;
 
-  openDialogDelete(postition: number, folder: Section, typeObject: string): void {
-    const dialogo1 = this.dialog.open(AlertDialogDelete, {
-      data: new DataModal(
-        'Eliminar Imagen', 'Esta seguro que quiere eliminar esta Imagen?', typeObject, folder)
+
+  openDialogEdit(columName: string, docReference: string): void {
+    let elementName = '';
+    switch (columName) {
+      case 'TIT':
+        elementName = 'titulo';
+        break;
+      case 'DESC':
+        elementName = 'descripcion';
+        break;
+      case 'DESC_P':
+        elementName = 'descripcion';
+        break;
+    }
+
+
+    const dialogo1 = this.dialog.open(AlertDialogEditData, {
+      data: new DataModalEdit(
+        'Editar ' + elementName, columName, elementName, docReference)
     });
     dialogo1.afterClosed().subscribe(result => {
-      if (result == 'Deleted') {
+      if (result == 'Modify') {
 
       }
     });
+  }
+
+  editData(columName: string, docReference: string) {
+    this.openDialogEdit(columName, docReference);
   }
 }

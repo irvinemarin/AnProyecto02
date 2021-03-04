@@ -12,20 +12,13 @@ import {BreakpointObserver} from '@angular/cdk/layout';
 })
 export class MainComponent implements OnInit {
   title = 'AnProyecto02';
-  slides = [
-    {image: 'assets/Palacio_solo.jpg'},
-    {image: 'assets/poder-juicial.png'},
-    {image: 'assets/Palacio_solo.jpg'},
-    {image: 'assets/Palacio_solo.jpg'},
-
-  ];
+  slides = [];
 
 
   valueTextButton = 'Leer más';
   actividadesList: Section[];
   agendaList: Section[];
-  private breakpointActividades: number;
-  private breakpointAgendas: number;
+
 
 
   constructor(private toastr: ToastrService,
@@ -38,6 +31,7 @@ export class MainComponent implements OnInit {
   ngOnInit(): void {
     this.getActividadesWS();
     this.getAgendasWS();
+    this.getSliderWS();
     // this.countItemsAgenda = (window.innerWidth <= 400) ? 1 : 4;
     // this.rowHeigthActividad = (window.innerWidth <= 400) ? '1:3.6' : '1:1.2';
     // this.rowHeigthAgenda = (window.innerWidth <= 400) ? '1:3.6' : '1:1.2';
@@ -126,18 +120,15 @@ export class MainComponent implements OnInit {
   gridColsSpan: any;
 
 
-  onResize(event) {
-  }
+  getSliderWS = () =>
+    this.service.getSliders().subscribe(res => {
+        this.slides = [];
+        // console.table(res);
+        res.forEach(item => {
+          this.slides.push(item);
+        });
 
-  private detectBreakpoint(): void {
-    this.breakpointObserver.observe(['(max-width: 500px)']).subscribe(result => {
-      this.rowHeigthActividad = result.matches ? '50vh' : '50vh';
-      this.proportionActividad = result.matches ? 400 : 40;
-      this.colsItemsActividad = result.matches ? 3 : 1;
-      this.gridRowsSpan = result.matches ? 3 : 3;
-      this.gridColsSpan = result.matches ? 3 : 3;
-
-    });
-  }
+      }
+    );
 
 }

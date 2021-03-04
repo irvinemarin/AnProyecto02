@@ -21,6 +21,13 @@ H2 {
   padding-left: 60px !important;
 }
 
+p {
+  font-size: 24px !important;
+  line-height: 40px;
+  text-align: justify !important;
+  color: #929292;
+}
+
 .img_round {
   border-radius: 50%;
   width: 80px;

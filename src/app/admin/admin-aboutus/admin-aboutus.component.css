@@ -18,3 +18,7 @@
   justify-content: center;
   width: 50px;
 }
+.card_about_content {
+  padding: 10px;
+  padding-left: 60px !important;
+}

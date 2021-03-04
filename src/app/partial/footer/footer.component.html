@@ -1,8 +1,7 @@
 <style>
 
   .footer-primary-color {
-    color: white;
-
+    background-color: #656565 !important;
   }
 
   .center {
@@ -23,37 +22,32 @@
 
 
         <mat-list role="list">
-
           <mat-list-item role="listitem">Direccion :
-
             <span
-              style="position: absolute;right: 8px; top: 35px;  color: #c1c1c1"> {{dataContancto.direccion}}
+              style="position: absolute;right: 8px;  color: #c1c1c1"> {{dataContancto["direccion"]}}
                   </span>
           </mat-list-item>
-          <br>
-
           <mat-list-item role="listitem">Telefono :
-
             <span
-              style="position: absolute;right: 8px; top: 35px;  color: #c1c1c1"> {{dataContancto.telefono}}
+              style="position: absolute;right: 8px;  color: #c1c1c1"> {{dataContancto["telefono"]}}
                   </span>
-
           </mat-list-item>
           <mat-list-item role="listitem">Email :
             <span
-              style="position: absolute;right: 8px; top: 35px;  color: #c1c1c1"> {{dataContancto.email}}
+              style="position: absolute;right: 8px;  color: #c1c1c1"> {{dataContancto["email"]}}
                   </span>
           </mat-list-item>
         </mat-list>
       </div>
     </div>
+
     <div class="col-sm-4 center" style="margin: auto!important;">
-      Current Version: 0.0.1
+      Version: {{dataAPP["Version"]}}
 
     </div>
-    <div class="col-sm-4 center" style="margin: auto!important;">
-      Powered by PJ Developers ©2020.
 
+    <div class="col-sm-4 center" style="margin: auto!important;">
+      {{dataAPP["copy_data"]}}
     </div>
   </div>
   <br>

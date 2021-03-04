@@ -47,7 +47,8 @@ import {AboutComponent} from './client/about/about.component';
 import {ContactoComponent} from './client/contacto/contacto.component';
 import {AdminAboutusComponent} from './admin/admin-aboutus/admin-aboutus.component';
 import {AdminContactoComponent} from './admin/admin-contacto/admin-contacto.component';
-import {AlertDialogContacto} from './dialogs/dialog-contacto/alert-dialog-contacto.component';
+import {AlertDialogEditData} from './dialogs/dialog-edit/alert-dialog-edit.component';
+import {AdminAppComponent} from './admin/admin-app/admin-app.component';
 
 const routes: Routes = [
   {path: '', component: MainComponent},
@@ -74,11 +75,12 @@ registerLocaleData(localeEs, 'es');
     IndexComponent,
     AlertDialogDelete,
     AlertDialogCreate,
-    AlertDialogContacto,
+    AlertDialogEditData,
     AlertDialogCreateDetail,
     DialogImageFull,
     AdminSliderComponent,
     AdminAboutusComponent,
+    AdminAppComponent,
     AdminContactoComponent,
     NavlineComponent,
   ],
